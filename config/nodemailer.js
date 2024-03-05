@@ -1,6 +1,6 @@
 // config/nodemailer.js
 const nodemailer = require('nodemailer');
-
+require('dotenv').config();
 const transporter = nodemailer.createTransport({
   service: 'gmail', // e.g., 'gmail'
   auth: {

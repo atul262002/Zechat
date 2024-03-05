@@ -1,5 +1,5 @@
-// modules/user/repository/userRepository.js
-const User = require('../authregister/usermodel');
+
+const User = require('./Model/userModel');
 
 class UserRepository {
   async createUser(user) {
@@ -17,15 +17,23 @@ class UserRepository {
   async findUserByVerificationToken(verificationToken) {
     try {
       const user = await User.findOne({ verificationToken });
-
       return user;
+      
     } catch (error) {
       // Handle error, such as logging or throwing a custom error
       console.error('Error finding user by verification token:', error);
       throw new Error('Unable to find user by verification token');
     }
   }
+
+  async updateUserToken(email,verificationToken){
+    return await User.updateOne({ email }, { $set: { verificationToken: verificationToken } });
+  }
   
+  async updateUserPass(verificationToken,password) {
+    return await User.updateOne({ verificationToken }, { $set: { password: password } });
+  }
+
 }
 
 module.exports = new UserRepository();

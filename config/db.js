@@ -1,9 +1,9 @@
-// config/db.js
 const mongoose = require('mongoose');
-
-mongoose.connect(process.env.mongodb_uri
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-);
-
+require('dotenv').config();
+mongoose.connect(process.env.mongodb_uri)
+    // ,{useNewUrlParser:true,useUnifiedTopology:true})
+    .catch((e)=>{
+     console.log("connection error "+ e.message)
+    })
+    
 module.exports = mongoose.connection;
